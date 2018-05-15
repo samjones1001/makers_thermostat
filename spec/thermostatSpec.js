@@ -9,6 +9,10 @@ describe('Thermostat', function() {
     expect(thermostat.currentTemp()).toEqual(20);
   });
 
+  it('starts in power saving mode', function() {
+    expect(thermostat.isPowerSaving()).toEqual(true);
+  });
+
   describe('#up', function() {
     it('raises the current temperature by 1', function() {
       thermostat.up();

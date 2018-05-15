@@ -16,3 +16,7 @@ Thermostat.prototype.down = function() {
     this._currentTemp--;
   }
 }
+
+Thermostat.prototype.isPowerSaving = function() {
+  return true;
+}
