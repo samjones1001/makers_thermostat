@@ -25,6 +25,10 @@ $(document).ready(function() {
     setTempDisplay();
   });
 
+  $('#city-updater').on('click', function() {
+    setLocalWeather();
+  })
+
   function setTempDisplay() {
     $('#temp-display').text(thermostat.currentTemp());
     $('#power-usage-display').attr('class', thermostat.currentUsage())
@@ -36,9 +40,15 @@ $(document).ready(function() {
   }
 
   function setLocalWeather() {
-    $.get('http://api.openweathermap.org/data/2.5/weather?q=London&units=metric&APPID=28da720ac77959beb32c9a1a92ebf7d7', function(res) {
-      $('#weather-temp').text(res.main.temp)
-      $('#weather-description').text(res.weather[0].main.toLowerCase());
+    let url = 'http://api.openweathermap.org/data/2.5/weather?q='
+    let city = $('#city-input').val()
+    let units = '&units=metric'
+    let token = '&APPID=28da720ac77959beb32c9a1a92ebf7d7'
+    let req = url + city + units + token
+
+    $.get(url + city + units + token, function(res) {
+      $('#weather-location').text(res.name);
+      $('#weather-temp').text(res.main.temp);
     })
   }
 });
