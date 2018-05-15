@@ -26,6 +26,7 @@ $(document).ready(function() {
 
   function setTempDisplay() {
     $('#temp-display').text(thermostat.currentTemp());
+    $('#power-usage-display').attr('class', thermostat.currentUsage())
   }
 
   function setPsDisplay() {
