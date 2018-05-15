@@ -13,6 +13,19 @@ describe('Thermostat', function() {
     expect(thermostat.isPowerSaving()).toEqual(true);
   });
 
+  describe('#togglePowerSaving', function() {
+    it('switches power saving mode off', function() {
+      thermostat.togglePowerSaving();
+      expect(thermostat.isPowerSaving()).toEqual(false);
+    });
+
+    it('can switch power saving mode back on', function() {
+      thermostat.togglePowerSaving();
+      thermostat.togglePowerSaving();
+      expect(thermostat.isPowerSaving()).toEqual(true);
+    });
+  });
+
   describe('#up', function() {
     it('raises the current temperature by 1', function() {
       thermostat.up();
