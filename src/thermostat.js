@@ -6,39 +6,45 @@ function Thermostat(){
   this._maxTemp = 32;
 }
 
-Thermostat.prototype.currentTemp = function() {
-  return this._currentTemp;
-}
+Thermostat.prototype = {
+  currentTemp: function() {
+    return this._currentTemp;
+  },
 
-Thermostat.prototype.maxTemp = function() {
-  return this.isPowerSaving() ? this._powerSavingMaxTemp : this._maxTemp
-}
+  maxTemp: function() {
+    return this.isPowerSaving() ? this._powerSavingMaxTemp : this._maxTemp
+  },
 
-Thermostat.prototype.isPowerSaving = function() {
-  return this._isPowerSaving;
-}
+  isPowerSaving: function() {
+    return this._isPowerSaving;
+  },
 
-Thermostat.prototype.togglePowerSaving = function() {
-  this._isPowerSaving = !this._isPowerSaving;
-}
+  isPowerSaving: function() {
+    return this._isPowerSaving;
+  },
 
-Thermostat.prototype.currentUsage = function() {
-  if (this.currentTemp() > 24) {
-    return "hi";
-  } else if (this.currentTemp() >= 18) {
-    return "mid";
-  }
-  return "low"
-}
+  togglePowerSaving: function() {
+    this._isPowerSaving = !this._isPowerSaving;
+  },
 
-Thermostat.prototype.up = function() {
-  if (this.currentTemp() < this.maxTemp()) {
-    this._currentTemp++;
-  }
-}
+  currentUsage: function() {
+    if (this.currentTemp() > 24) {
+      return "hi";
+    } else if (this.currentTemp() >= 18) {
+      return "mid";
+    }
+    return "low"
+  },
 
-Thermostat.prototype.down = function() {
-  if (this.currentTemp() > this._minTemp) {
-    this._currentTemp--;
+  up: function() {
+    if (this.currentTemp() < this.maxTemp()) {
+      this._currentTemp++;
+    }
+  },
+
+  down: function() {
+    if (this.currentTemp() > this._minTemp) {
+      this._currentTemp--;
+    }
   }
 }
