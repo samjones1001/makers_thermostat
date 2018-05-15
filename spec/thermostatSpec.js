@@ -73,6 +73,14 @@ describe('Thermostat', function() {
     });
   });
 
+  describe('#reset', function() {
+    it('resets the temperature back the to default', function() {
+      thermostat.up();
+      thermostat.reset();
+      expect(thermostat.currentTemp()).toEqual(thermostat._defaultTemp);
+    })
+  });
+
   describe('#currentUsage', function() {
     it('returns low when the temperature is below 18', function() {
       thermostat._currentTemp = getRandomInt(10, 17);

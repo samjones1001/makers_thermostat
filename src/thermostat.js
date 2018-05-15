@@ -1,4 +1,5 @@
 function Thermostat(){
+  this._defaultTemp = 20;
   this._currentTemp = 20;
   this._minTemp = 10;
   this._isPowerSaving = true;
@@ -46,5 +47,9 @@ Thermostat.prototype = {
     if (this.currentTemp() > this._minTemp) {
       this._currentTemp--;
     }
+  },
+
+  reset: function() {
+    this._currentTemp = this._defaultTemp;
   }
 }
