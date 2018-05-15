@@ -32,6 +32,18 @@ describe('Thermostat', function() {
         expect(thermostat.maxTemp()).toEqual(thermostat._powerSavingMaxTemp);
       });
     });
+
+    describe('#togglePowerSaving', function() {
+      it('will rest temp to power saving max if too high', function() {
+        thermostat.togglePowerSaving();
+        var distanceFromMax = thermostat.maxTemp() - thermostat.currentTemp();
+        for (var i = 0; i < distanceFromMax; i++) {
+          thermostat.up();
+        }
+        thermostat.togglePowerSaving();
+        expect(thermostat.currentTemp()).toEqual(thermostat.maxTemp());
+      });
+    });
   });
 
   describe('when not in power saving mode', function() {
