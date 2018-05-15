@@ -26,6 +26,23 @@ describe('Thermostat', function() {
     });
   });
 
+  describe('when in power saving mode', function() {
+    describe('#maxTemp', function() {
+      it('will return the power saving max temp', function() {
+        expect(thermostat.maxTemp()).toEqual(thermostat._powerSavingMaxTemp);
+      });
+    });
+  });
+
+  describe('when not in power saving mode', function() {
+    describe('#maxTemp', function() {
+      it('will return the max temp', function() {
+        thermostat.togglePowerSaving();
+        expect(thermostat.maxTemp()).toEqual(thermostat._maxTemp);
+      });
+    });
+  });
+
   describe('#up', function() {
     it('raises the current temperature by 1', function() {
       thermostat.up();
@@ -56,20 +73,24 @@ describe('Thermostat', function() {
     });
   });
 
-  describe('when in power saving mode', function() {
-    describe('#maxTemp', function() {
-      it('will return the power saving max temp', function() {
-        expect(thermostat.maxTemp()).toEqual(thermostat._powerSavingMaxTemp);
-      });
+  describe('#currentUsage', function() {
+    it('returns low when the temperature is below 18', function() {
+      thermostat._currentTemp = getRandomInt(10, 17);
+      expect(thermostat.currentUsage()).toEqual("low");
     });
-  });
 
-  describe('when not in power saving mode', function() {
-    describe('#maxTemp', function() {
-      it('will return the max temp', function() {
-        thermostat.togglePowerSaving();
-        expect(thermostat.maxTemp()).toEqual(thermostat._maxTemp);
-      });
+    it('returns mid when the temperature is between 18 and 24', function(){
+      thermostat._currentTemp = getRandomInt(18, 24);
+      expect(thermostat.currentUsage()).toEqual("mid");
+    });
+
+    it('returns hi when the temperature is between 25 or above', function(){
+      thermostat._currentTemp = getRandomInt(25, 32);
+      expect(thermostat.currentUsage()).toEqual("hi");
     });
   });
 });
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}

@@ -22,6 +22,15 @@ Thermostat.prototype.togglePowerSaving = function() {
   this._isPowerSaving = !this._isPowerSaving;
 }
 
+Thermostat.prototype.currentUsage = function() {
+  if (this.currentTemp() > 24) {
+    return "hi";
+  } else if (this.currentTemp() >= 18) {
+    return "mid";
+  }
+  return "low"
+}
+
 Thermostat.prototype.up = function() {
   if (this.currentTemp() < this.maxTemp()) {
     this._currentTemp++;
