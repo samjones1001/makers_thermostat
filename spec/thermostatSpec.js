@@ -31,6 +31,14 @@ describe('Thermostat', function() {
       thermostat.up();
       expect(thermostat.currentTemp()).toEqual(21);
     });
+
+    it('will not raise the temperature above the maximum temperature', function() {
+      var distanceFromMax = thermostat.maxTemp() - thermostat.currentTemp();
+      for(var i = 0; i <= distanceFromMax; i++) {
+        thermostat.up();
+      }
+      expect(thermostat.currentTemp()).toEqual(thermostat.maxTemp());
+    });
   });
 
   describe('#down', function() {
@@ -45,6 +53,23 @@ describe('Thermostat', function() {
         thermostat.down();
       }
       expect(thermostat.currentTemp()).toEqual(thermostat._minTemp);
+    });
+  });
+
+  describe('when in power saving mode', function() {
+    describe('#maxTemp', function() {
+      it('will return the power saving max temp', function() {
+        expect(thermostat.maxTemp()).toEqual(thermostat._powerSavingMaxTemp);
+      });
+    });
+  });
+
+  describe('when not in power saving mode', function() {
+    describe('#maxTemp', function() {
+      it('will return the max temp', function() {
+        thermostat.togglePowerSaving();
+        expect(thermostat.maxTemp()).toEqual(thermostat._maxTemp);
+      });
     });
   });
 });
